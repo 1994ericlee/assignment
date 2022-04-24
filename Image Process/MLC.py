@@ -4,6 +4,7 @@
 from random import random
 import cv2 as cv
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def getsamples(img):
@@ -46,6 +47,7 @@ cv2.destroyAllWindows()
 # %%
 import cv2
 import numpy as np
+
 img = cv2.imread("irabu_zhang1.bmp")
 
 def on_EVENT_LBUTTONDOWN(event, x, y, flags, param):
@@ -75,6 +77,8 @@ cv2.destroyAllWindow()
 import cv2 
 import numpy as np
 import random
+import matplotlib.pyplot as plt
+
 img = cv2.imread('irabu_zhang1.bmp')
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 data = np.asarray(img)
@@ -147,14 +151,14 @@ def pixel_classify(pixel):
 
 def pixel2rgb(pixel):
     pixel_rgb = img[pixel[1]][pixel[0]]
-    print(pixel_rgb)
+    # print(pixel_rgb)
     return pixel_rgb
 
 def cal_ml(pixel_rgb):
     flag = 0
     old_prob = -1000000
     for i in range (class_number):
-        print(train_sample_rgb_mean[i])
+        # print(train_sample_rgb_mean[i])
         diff = pixel_rgb - train_sample_rgb_mean[i]
         
         if (prob(i, diff)) > old_prob:
@@ -176,10 +180,15 @@ def prob(classcode, diff):
     prob =  -0.5 * (np.dot(np.dot(diff, inverseCovMatrix),diff.T)) - constant
     return prob
 
-pixel = (222, 261)
 print(pixel_classify(pixel))
 
-def class_img():
-    pixel
-    
+def generate_img():
+    new_img = np.ones((350, 450, 3))
+    for i in range (449):
+        for j in range (349):
+            pixel = (i, j)
+            new_img[:,:,:] =  train_sample_rgb_mean[pixel_classify(pixel)]      
+    return new_img      
+plt.imshow(generate_img())
+plt.show()
 # %%
