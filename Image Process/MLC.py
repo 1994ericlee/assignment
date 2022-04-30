@@ -22,7 +22,7 @@ rangeY4 = (114, 121)
 rangeX5 = (293, 310)
 rangeY5 = (153, 177)
 
-train_number = 15
+train_number = 10
 class_number = 5
 dim_rgb = 3
 
