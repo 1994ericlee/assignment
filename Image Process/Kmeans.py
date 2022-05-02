@@ -35,14 +35,27 @@ while clusterChanged:
                     minIndex = x
             if class_Matrix[i][j] != minIndex : 
                 class_Matrix[i][j] = minIndex
-                clusterChanged = True
-print(class_Matrix)    
-for x in range(k):
-    points = np.nonzero(class_Matrix == x)
-    pointsInCluster = data[points]
-    centroid[x, :] = np.mean(pointsInCluster, axis = 0)
-print(centroid)             
-# print(kmeans())               
+                clusterChanged = False
+    
+    for x in range(k):
+        points = np.nonzero(class_Matrix == x)
+        pointsInCluster = data[points]
+        centroid[x, :] = np.mean(pointsInCluster, axis = 0)
+    print(centroid)             
+print(class_Matrix)     
+
+def generate_img(class_Matrix):
+    new_img = np.ones((450, 350, 3))
+    for i in range (450):
+        for j in range (350):
+            pixel = (i, j)
+            class_Matrix = np.array(class_Matrix, dtype = np.uint8)
+            new_img[i][j] =  centroid[class_Matrix[i][j]]      
+    new_img = np.array(new_img, dtype = np.uint8)
+    new_img = new_img.transpose(1,0,2)   
+    return new_img   
+plt.imshow(generate_img(class_Matrix))
+plt.show()        
                 
 
 # %%
